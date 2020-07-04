@@ -1,15 +1,8 @@
 import React from 'react'
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap'
 
-class DishDetail extends React.Component {
-    constructor(props){
-        super(props)
-        this.state={
 
-        }
-    }
-
-    renderComments(dish){
+    function renderComments(dish){
         return(
             <ul className="list-unstyled">
             {dish.comments.map((comment) => 
@@ -27,40 +20,42 @@ class DishDetail extends React.Component {
         
     }
 
-    renderDish(dish){
+    function renderDish(dish){
         return(
-            <div className="row">
-                <div  className="col-12 col-md-5 m-1">
-                    <Card>
-                        <CardImg top src={dish.image} alt={dish.name} />
-                        <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </Card>
-                </div>
-                <div className="col-md">
-                    <h4>Comments</h4>
-                    {this.renderComments(dish)}
-                </div>
+            <div className="container">
+                <div className="row">
+                    <div  className="col-12 col-md-5 m-1">
+                        <Card>
+                            <CardImg top src={dish.image} alt={dish.name} />
+                            <CardBody>
+                                <CardTitle>{dish.name}</CardTitle>
+                                <CardText>{dish.description}</CardText>
+                            </CardBody>
+                        </Card>
+                    </div>
+                    <div className="col-md">
+                        <h4>Comments</h4>
+                        {renderComments(dish)}
+                    </div>
 
 
+                </div>
             </div>
         )
     }
     
 
-    render(){
-        const {dish} = this.props
+    const DishDetail = (props) => {
+        const {dish} = props
         if(dish!=null)
             return(
-                this.renderDish(dish)              
+                renderDish(dish)              
             )
         else
             return(
                 <div></div>
             );
     }
-}
+
 
 export default DishDetail;
