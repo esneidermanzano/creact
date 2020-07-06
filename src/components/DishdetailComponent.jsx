@@ -3,7 +3,6 @@ import {Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem
 import {Link} from 'react-router-dom'
 
     function RenderComments({comments}){
-        console.log(comments)
         return(
             <div className="col-md">
                 <h4>Comments</h4>
@@ -44,9 +43,6 @@ import {Link} from 'react-router-dom'
 
     const DishDetail = (props) => {
         const {dish, comments} = props
-        console.log("Entro a esta mierda")
-        console.log(comments)
-
         if(dish!=null){
 
             return(
