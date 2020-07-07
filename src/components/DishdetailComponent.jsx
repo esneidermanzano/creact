@@ -27,9 +27,11 @@ const minLength = (len) => (val) => val && (val.length >= len);
           }
 
         handleSubmit(values) {
-            console.log('Current State is: ' + JSON.stringify(values));
-            alert('Current State is: ' + JSON.stringify(values));
+            console.log("===================    ")
+            console.log(values)
             this.toggleModal()
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+            
         }
     
           
@@ -44,7 +46,8 @@ const minLength = (len) => (val) => val && (val.length >= len);
                         <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                         <ModalBody>
                             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-                                <FormGroup>
+                                <Row>
+                                    <Col>
                                     <Label htmlFor="rating" >Rating</Label>
                                     <Control.select model=".rating" name="rating"
                                         className="form-control">
@@ -54,11 +57,13 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                         <option>4</option>
                                         <option>5</option>
                                     </Control.select>
-                                </FormGroup>
+                                    </Col>
+                                </Row>
                                     
-                                <FormGroup>
-                                    <Label htmlFor="yourname">Your Name</Label>
-                                    <Control.text model=".yourname" id="yourname" name="yourname"
+                                <Row>
+                                <Col>
+                                    <Label htmlFor="author">Your Name</Label>
+                                    <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -67,7 +72,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                             />
                                     <Errors
                                         className="text-danger"
-                                        model=".yourname"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -75,13 +80,17 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                             maxLength: 'Must be 15 characters or less'
                                         }}
                                         />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label htmlFor="message">Comment</Label>                                    
-                                    <Control.textarea model=".message" id="message" name="message"
+                                        </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                    <Label htmlFor="comment">Comment</Label>                                    
+                                    <Control.textarea model=".comment" id="comment" name="comment"
                                         rows="6"
                                         className="form-control" />
-                                </FormGroup>
+                                    </Col>
+
+                                </Row>
                                 <Button type="submit" color="primary">Submit</Button>
                                  
                             </LocalForm>
@@ -96,7 +105,8 @@ const minLength = (len) => (val) => val && (val.length >= len);
     }
 
     
-    function RenderComments({comments}){
+    
+    function RenderComments({comments, addComment, dishId}){
         return(
             <div className="col-md">
                 <h4>Comments</h4>
@@ -113,7 +123,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                     </React.Fragment>
                 )} 
                 </ul>
-                <CommentForm/>
+                <CommentForm dishId={dishId} addComment={addComment}/>
                     
             </div>
         )
@@ -157,7 +167,9 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
                 <div className="row">
                     <RenderDish dish={dish}/>
-                    <RenderComments comments={comments}/>
+                    <RenderComments comments={comments}
+                    addComment={props.addComment}
+                    dishId={props.dish.id}/>
                 </div>
                 </div>
             )

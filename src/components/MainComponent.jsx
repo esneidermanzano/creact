@@ -10,6 +10,8 @@ import Footer from './FooterComponent';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom'
 import { connect } from "react-redux";
 
+import { addComment } from "../redux/ActionCreators"; 
+
 const mapStateToProps = state => {
   return{
     dishes: state.dishes,
@@ -19,6 +21,10 @@ const mapStateToProps = state => {
   }
 }
 
+
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+})
 
 class Main extends Component {
 
@@ -43,6 +49,7 @@ class Main extends Component {
         <DishDetail 
           dish={this.props.dishes.filter((dish) => dish.id == parseInt(match.params.dishid, 10))[0]}
           comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishid,10))} 
+          addComment={this.props.addComment}
         />
       )
 
@@ -67,4 +74,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
