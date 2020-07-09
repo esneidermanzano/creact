@@ -33,7 +33,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
             console.log("===================    ")
             console.log(values)
             this.toggleModal()
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+            this.props.postComment(this.props.dishId, values.rating, values.author, values.comment)
             
         }
     
@@ -109,7 +109,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
     
     
-    function RenderComments({comments, addComment, dishId}){
+    function RenderComments({comments, postComment, dishId}){
         return(
             <div className="col-md">
                 <h4>Comments</h4>
@@ -126,7 +126,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                     </React.Fragment>
                 )} 
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment}/>
+                <CommentForm dishId={dishId} postComment={postComment}/>
                     
             </div>
         )
@@ -151,7 +151,6 @@ const minLength = (len) => (val) => val && (val.length >= len);
     
 
     const DishDetail = (props) => {
-        console.log("Esto es no null================", props)
 
         const {dish, comments} = props
 
@@ -189,7 +188,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 <div className="row">
                     <RenderDish dish={dish}/>
                     <RenderComments comments={comments}
-                    addComment={props.addComment}
+                    postComment={props.postComment}
                     dishId={props.dish.id}/>
                 </div>
                 </div>
